@@ -1,8 +1,8 @@
-# Pooping
+# Throne
 
-**Track your throne time. Predict your next visit. Chat with fellow poopers.**
+**Every king needs a throne. Yours just happens to be porcelain.**
 
-A humor-first bathroom session tracker built with React Native and Expo. Log sessions, analyze your patterns, get AI-powered predictions for your next visit, and chat with other users in real time.
+Throne turns your most private moments into your most productive ones. Track your sessions, discover your patterns, predict when nature will call next, and chat with fellow rulers in real time. Yes, we built an AI for that.
 
 ## Features
 
@@ -30,7 +30,7 @@ A humor-first bathroom session tracker built with React Native and Expo. Log ses
 - Real-time buddy matching — get paired with someone also on the throne
 - Live "poopers online" counter
 - Public chat rooms (The Throne Room, Morning Regulars, Late Night Club, etc.)
-- All chat features are session-gated — you must be actively pooping
+- All chat features are session-gated — you must be actively on the throne
 
 ### Achievements & Gamification
 - Unlock badges for milestones (streaks, session counts, speed records)
@@ -146,4 +146,4 @@ Supabase free tier pauses after 1 week of inactivity. A GitHub Actions cron job 
 
 ## License
 
-MIT
+Copyright (c) 2026 Throne App. All rights reserved. See [LICENSE](LICENSE) for details.

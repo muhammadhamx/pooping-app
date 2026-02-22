@@ -1,6 +1,6 @@
 // App-wide constants
 
-export const APP_NAME = 'Pooping';
+export const APP_NAME = 'Throne';
 
 // Session constraints
 export const MIN_SESSION_DURATION_SECONDS = 1;

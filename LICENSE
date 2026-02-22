@@ -1,21 +1,31 @@
-MIT License
+Copyright (c) 2026 Throne App. All rights reserved.
 
-Copyright (c) 2026 Pooping App
+PROPRIETARY SOFTWARE LICENSE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software and associated documentation files (the "Software") are the
+exclusive property of Throne App. No part of this Software may be reproduced,
+distributed, transmitted, displayed, published, or broadcast in any form or
+by any means, including photocopying, recording, or other electronic or
+mechanical methods, without the prior written permission of the copyright
+holder.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The Software is provided for reference and portfolio purposes only. You may
+view the source code, but you may NOT:
+
+  1. Copy, modify, merge, or create derivative works based on the Software.
+  2. Distribute, sublicense, sell, or otherwise transfer the Software to
+     any third party.
+  3. Use the Software, in whole or in part, for any commercial or
+     non-commercial project without explicit written permission.
+  4. Reverse-engineer, decompile, or disassemble any compiled portions
+     of the Software.
+
+Any unauthorized use, reproduction, or distribution of this Software is
+strictly prohibited and may result in civil and criminal penalties.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF OR INABILITY TO USE
+THE SOFTWARE.
+
+For licensing inquiries, contact: legal@throneapp.co

@@ -385,7 +385,7 @@ export default function SettingsScreen() {
       <Text style={styles.sectionTitle}>About</Text>
       <View style={styles.card}>
         <Text style={styles.aboutText}>
-          Pooping v{appVersion}{'\n'}
+          Throne v{appVersion}{'\n'}
           Built with love (and fiber).
         </Text>
       </View>

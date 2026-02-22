@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Pooping",
-    "slug": "pooping",
+    "name": "Throne",
+    "slug": "throne-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "pooping",
+    "scheme": "throne",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pooping.app"
+      "bundleIdentifier": "com.throneapp.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#4A2B0F"
       },
-      "package": "com.pooping.app",
+      "package": "com.throneapp.app",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
@@ -46,13 +46,13 @@
     },
     "extra": {
       "eas": {
-        "projectId": "7c5a8b65-dd43-4351-b9b1-32a7b12f97b3"
+        "projectId": "76bd3df5-87ce-4e95-b120-51fa2345dfa5"
       },
       "router": {}
     },
     "owner": "muhammadhamxa",
     "updates": {
-      "url": "https://u.expo.dev/7c5a8b65-dd43-4351-b9b1-32a7b12f97b3"
+      "url": "https://u.expo.dev/76bd3df5-87ce-4e95-b120-51fa2345dfa5"
     }
   }
 }

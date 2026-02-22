@@ -68,11 +68,10 @@ export default function WelcomeScreen() {
         >
           💩
         </Animated.Text>
-        <Text style={styles.title}>Pooping</Text>
+        <Text style={styles.title}>Throne</Text>
         <Text style={styles.subtitle}>
-          Track your throne time.{'\n'}
-          Predict your next visit.{'\n'}
-          Chat with fellow poopers.
+          Every king needs a throne.{'\n'}
+          Yours just happens to be porcelain.
         </Text>
       </View>
 

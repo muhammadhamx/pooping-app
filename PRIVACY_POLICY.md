@@ -2,7 +2,7 @@
 
 **Last Updated: February 22, 2026**
 
-Pooping ("the App," "we," "us," or "our") is a mobile application designed to help you track your bathroom sessions. We take your privacy seriously — especially given the personal nature of the data involved. This Privacy Policy explains what information we collect, how we use it, and the choices you have.
+Throne ("the App," "we," "us," or "our") is a mobile application designed to help you track your bathroom sessions. We take your privacy seriously — especially given the personal nature of the data involved. This Privacy Policy explains what information we collect, how we use it, and the choices you have.
 
 By using the App, you agree to the collection and use of information as described in this policy.
 
@@ -147,4 +147,4 @@ We may update this Privacy Policy from time to time. When we do, we will revise 
 
 If you have any questions, concerns, or requests related to this Privacy Policy or your data, please contact us at:
 
-**Email:** [privacy@pooping.app](mailto:privacy@pooping.app)
+**Email:** [privacy@throneapp.co](mailto:privacy@throneapp.co)

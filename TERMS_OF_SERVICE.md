@@ -2,7 +2,7 @@
 
 **Last Updated: February 22, 2026**
 
-Welcome to Pooping ("the App," "we," "us," or "our"). These Terms of Service ("Terms") govern your access to and use of the App. Please read them carefully before using the App.
+Welcome to Throne ("the App," "we," "us," or "our"). These Terms of Service ("Terms") govern your access to and use of the App. Please read them carefully before using the App.
 
 ---
 
@@ -16,7 +16,7 @@ We may update these Terms from time to time. When we do, we will revise the "Las
 
 ## 2. Description of the App
 
-Pooping is a free mobile application that allows you to track your bathroom sessions, view personal statistics, and interact with other users through real-time chat features including buddy matching and group chat rooms. The App is provided free of charge with no advertisements.
+Throne is a free mobile application that allows you to track your bathroom sessions, view personal statistics, and interact with other users through real-time chat features including buddy matching and group chat rooms. The App is provided free of charge with no advertisements.
 
 ---
 
@@ -177,4 +177,4 @@ These Terms, together with our Privacy Policy, constitute the entire agreement b
 
 If you have any questions or concerns about these Terms, please contact us at:
 
-**Email:** [legal@pooping.app](mailto:legal@pooping.app)
+**Email:** [legal@throneapp.co](mailto:legal@throneapp.co)
