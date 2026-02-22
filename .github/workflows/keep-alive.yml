@@ -9,12 +9,10 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase
+      - name: Ping keep-alive Edge Function
         run: |
-          curl -s -X PATCH \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?id=eq.1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{"pinged_at": "now()"}'
-          echo "Pinged Supabase at $(date)"
+          response=$(curl -sf \
+            "${{ secrets.SUPABASE_URL }}/functions/v1/keep-alive" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          echo "Response: $response"
+          echo "Pinged at $(date)"
