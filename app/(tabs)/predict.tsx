@@ -5,7 +5,7 @@ import { useSessionStore } from '@/stores/sessionStore';
 import { buildModel, predictNextSession, getInsights } from '@/prediction/engine';
 import { formatTime, formatDuration } from '@/utils/formatters';
 import { getRandomItem, EMPTY_STATE_MESSAGES } from '@/humor/jokes';
-import { MIN_SESSIONS_FOR_PREDICTION, COLORS } from '@/utils/constants';
+import { MIN_SESSIONS_FOR_PREDICTION, COLORS, SHADOWS } from '@/utils/constants';
 import { format } from 'date-fns';
 
 export default function PredictScreen() {
@@ -158,11 +158,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 32,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.cardElevated,
   },
   predictionLabel: {
     fontSize: 14,
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
   },
   countdown: {
     fontSize: 14,
-    color: COLORS.primary,
+    color: COLORS.accent,
     marginTop: 12,
     fontWeight: '600',
   },
@@ -212,13 +210,13 @@ const styles = StyleSheet.create({
   },
   confidenceFill: {
     height: 6,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.accent,
     borderRadius: 3,
   },
   confidenceValue: {
     fontSize: 12,
     fontWeight: '700',
-    color: COLORS.primary,
+    color: COLORS.accent,
     width: 36,
     textAlign: 'right',
   },
@@ -240,10 +238,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.surface,
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 16,
     marginBottom: 8,
     gap: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.subtle,
   },
   insightEmoji: {
     fontSize: 24,
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: 6,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.accent,
     borderRadius: 3,
   },
 });

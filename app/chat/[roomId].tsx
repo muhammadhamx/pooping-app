@@ -93,23 +93,27 @@ export default function RoomChatScreen() {
   const handleSend = async (content: string) => {
     if (!user?.id || !roomId) return;
 
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    await sendRoomMessage(user.id, roomId, content);
+    try {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await sendRoomMessage(user.id, roomId, content);
 
-    const channel = getChannel(`room:${roomId}`);
-    channel.send({
-      type: 'broadcast',
-      event: 'message',
-      payload: {
-        id: `temp-${Date.now()}`,
-        room_id: roomId,
-        sender_id: user.id,
-        content,
-        created_at: new Date().toISOString(),
-        senderName: myProfile.display_name,
-        senderEmoji: myProfile.avatar_emoji,
-      },
-    });
+      const channel = getChannel(`room:${roomId}`);
+      channel.send({
+        type: 'broadcast',
+        event: 'message',
+        payload: {
+          id: `temp-${Date.now()}`,
+          room_id: roomId,
+          sender_id: user.id,
+          content,
+          created_at: new Date().toISOString(),
+          senderName: myProfile.display_name,
+          senderEmoji: myProfile.avatar_emoji,
+        },
+      });
+    } catch {
+      // Error already set in store
+    }
   };
 
   return (

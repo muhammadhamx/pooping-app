@@ -12,6 +12,8 @@ import {
 } from '@/lib/database';
 import { updateProfile } from '@/lib/database';
 import { getChannel, removeChannel } from '@/lib/realtime';
+import { useGamificationStore } from '@/stores/gamificationStore';
+import { XP_REWARDS } from '@/gamification/xp';
 
 interface ChatState {
   rooms: ChatRoom[];
@@ -108,12 +110,22 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   sendRoomMessage: async (userId, roomId, content) => {
-    const message = await sendMessage(userId, content, { roomId });
-    get().addRoomMessage(roomId, message);
+    try {
+      const message = await sendMessage(userId, content, { roomId });
+      get().addRoomMessage(roomId, message);
+    } catch (err) {
+      set({ error: 'Failed to send message' });
+      throw err;
+    }
   },
 
   joinRoom: async (roomId, userId) => {
     await joinChatRoom(roomId, userId);
+
+    // Award XP for joining a room
+    const gamification = useGamificationStore.getState();
+    gamification.addXP(XP_REWARDS.room_join);
+    gamification.trackActivity('roomJoinDone');
   },
 
   leaveRoom: async (roomId, userId) => {
@@ -232,8 +244,21 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   sendBuddyMessage: async (userId, matchId, content) => {
-    const message = await sendMessage(userId, content, { matchId });
-    get().addBuddyMessage(message);
+    try {
+      const message = await sendMessage(userId, content, { matchId });
+      get().addBuddyMessage(message);
+
+      // Award XP for first buddy message per match
+      const messageCount = get().buddyMessages.filter((m) => m.sender_id === userId).length;
+      if (messageCount === 0) {
+        const gamification = useGamificationStore.getState();
+        gamification.addXP(XP_REWARDS.buddy_chat);
+        gamification.trackActivity('buddyChatDone');
+      }
+    } catch (err) {
+      set({ error: 'Failed to send message' });
+      throw err;
+    }
   },
 
   endMatch: async (matchId, userId) => {
@@ -243,9 +268,13 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   checkActiveMatch: async (userId) => {
-    const match = await getActiveMatch(userId);
-    if (match) {
-      set({ currentMatch: match });
+    try {
+      const match = await getActiveMatch(userId);
+      if (match) {
+        set({ currentMatch: match });
+      }
+    } catch {
+      // Silent fail — buddy check is non-critical
     }
   },
 

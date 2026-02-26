@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { User, Session as AuthSession } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
-import { signInAnonymously } from '@/lib/auth';
+import { signInAnonymously, signInWithEmail as signInWithEmailFn } from '@/lib/auth';
 
 interface AuthState {
   user: User | null;
@@ -10,7 +10,9 @@ interface AuthState {
   isAuthenticated: boolean;
   initialize: () => Promise<void>;
   signIn: () => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -55,6 +57,29 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch {
       set({ isLoading: false });
       throw new Error('Failed to sign in');
+    }
+  },
+
+  signInWithEmail: async (email: string, password: string) => {
+    set({ isLoading: true });
+    try {
+      const data = await signInWithEmailFn(email, password);
+      set({
+        session: data.session,
+        user: data.user,
+        isAuthenticated: true,
+        isLoading: false,
+      });
+    } catch (err) {
+      set({ isLoading: false });
+      throw err;
+    }
+  },
+
+  refreshUser: async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      set({ user });
     }
   },
 

@@ -78,23 +78,27 @@ export default function BuddyChatScreen() {
   const handleSend = async (content: string) => {
     if (!user?.id || !matchId) return;
 
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    await sendBuddyMessage(user.id, matchId, content);
+    try {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await sendBuddyMessage(user.id, matchId, content);
 
-    const channel = getChannel(`buddy:${matchId}`);
-    channel.send({
-      type: 'broadcast',
-      event: 'message',
-      payload: {
-        id: `temp-${Date.now()}`,
-        match_id: matchId,
-        sender_id: user.id,
-        content,
-        created_at: new Date().toISOString(),
-        senderName: myProfile.display_name,
-        senderEmoji: myProfile.avatar_emoji,
-      },
-    });
+      const channel = getChannel(`buddy:${matchId}`);
+      channel.send({
+        type: 'broadcast',
+        event: 'message',
+        payload: {
+          id: `temp-${Date.now()}`,
+          match_id: matchId,
+          sender_id: user.id,
+          content,
+          created_at: new Date().toISOString(),
+          senderName: myProfile.display_name,
+          senderEmoji: myProfile.avatar_emoji,
+        },
+      });
+    } catch {
+      // Error already set in store
+    }
   };
 
   const handleEnd = () => {

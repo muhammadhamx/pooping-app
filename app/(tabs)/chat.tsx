@@ -14,7 +14,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useSessionStore } from '@/stores/sessionStore';
 import { useChatStore } from '@/stores/chatStore';
 import { getRandomItem, EMPTY_STATE_MESSAGES, BUDDY_ICEBREAKERS } from '@/humor/jokes';
-import { COLORS } from '@/utils/constants';
+import { COLORS, SHADOWS } from '@/utils/constants';
 
 export default function ChatScreen() {
   const user = useAuthStore((s) => s.user);
@@ -195,8 +195,8 @@ export default function ChatScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              tintColor={COLORS.primary}
-              colors={[COLORS.primary]}
+              tintColor={COLORS.accent}
+              colors={[COLORS.accent]}
             />
           }
         />
@@ -237,6 +237,7 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     borderRadius: 16,
     gap: 10,
+    ...SHADOWS.cardElevated,
   },
   findBuddyDisabled: {
     backgroundColor: COLORS.border,
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   findBuddyText: {
-    color: '#FFFFFF',
+    color: COLORS.primaryDark,
     fontSize: 17,
     fontWeight: '700',
   },
@@ -266,6 +267,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 16,
     gap: 12,
+    ...SHADOWS.cardElevated,
   },
   matchEmoji: {
     fontSize: 28,
@@ -301,15 +303,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.surface,
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
     marginBottom: 8,
     gap: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.03,
-    shadowRadius: 4,
-    elevation: 1,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.card,
   },
   roomEmoji: {
     fontSize: 24,
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   errorContainer: {
-    backgroundColor: '#FFF0F0',
+    backgroundColor: COLORS.error + '15',
     marginHorizontal: 16,
     marginTop: 8,
     padding: 12,
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   },
   retryText: {
     fontSize: 13,
-    color: COLORS.primary,
+    color: COLORS.accent,
     fontWeight: '600',
     marginTop: 4,
   },

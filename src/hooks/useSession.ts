@@ -4,20 +4,21 @@ import { useAuthStore } from '@/stores/authStore';
 
 export function useSession() {
   const user = useAuthStore((s) => s.user);
-  const {
-    isActive,
-    elapsedSeconds,
-    sessions,
-    isLoading,
-    startSession,
-    stopSession,
-    quickLog,
-    updateMeta,
-    removeSession,
-    loadSessions,
-    restoreActiveSession,
-    tick,
-  } = useSessionStore();
+
+  // Subscribe to individual fields — NOT the whole store.
+  // Critically: do NOT subscribe to elapsedSeconds here.
+  // SessionTimer reads it directly from the store so only it re-renders on tick.
+  const isActive = useSessionStore((s) => s.isActive);
+  const sessions = useSessionStore((s) => s.sessions);
+  const isLoading = useSessionStore((s) => s.isLoading);
+  const startSession = useSessionStore((s) => s.startSession);
+  const stopSession = useSessionStore((s) => s.stopSession);
+  const quickLog = useSessionStore((s) => s.quickLog);
+  const updateMeta = useSessionStore((s) => s.updateMeta);
+  const removeSession = useSessionStore((s) => s.removeSession);
+  const loadSessions = useSessionStore((s) => s.loadSessions);
+  const restoreActiveSession = useSessionStore((s) => s.restoreActiveSession);
+  const tick = useSessionStore((s) => s.tick);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -73,7 +74,6 @@ export function useSession() {
 
   return {
     isActive,
-    elapsedSeconds,
     sessions,
     isLoading,
     startSession: handleStart,

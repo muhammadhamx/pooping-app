@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Animated } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { useSessionStore } from '@/stores/sessionStore';
 import { STILL_POOPING_INTERVALS } from '@/utils/constants';
 import { STILL_POOPING_MESSAGES } from '@/humor/jokes';
 import { COLORS } from '@/utils/constants';
 
-interface Props {
-  isActive: boolean;
-  elapsedSeconds: number;
-}
+export function StillPoopingPopup() {
+  // Subscribe directly — only this component re-renders on tick
+  const isActive = useSessionStore((s) => s.isActive);
+  const elapsedSeconds = useSessionStore((s) => s.elapsedSeconds);
 
-export function StillPoopingPopup({ isActive, elapsedSeconds }: Props) {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [shownIntervals, setShownIntervals] = useState<Set<number>>(new Set());
@@ -139,13 +139,13 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   button: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.accent,
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 25,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: COLORS.primaryDark,
     fontSize: 16,
     fontWeight: '700',
   },

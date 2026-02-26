@@ -7,6 +7,14 @@ export interface Profile {
   is_in_session: boolean;
   session_started_at: string | null;
   looking_for_buddy: boolean;
+  xp: number;
+  streak_count: number;
+  streak_last_date: string;
+  streak_freezes: number;
+  selected_title_id: string;
+  unlocked_title_ids: string[];
+  unlocked_achievement_ids: string[];
+  reward_session_count: number;
   created_at: string;
   updated_at: string;
 }

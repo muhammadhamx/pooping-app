@@ -6,13 +6,22 @@ export async function signInAnonymously() {
   return data;
 }
 
+export async function signInWithEmail(email: string, password: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (error) throw error;
+  return data;
+}
+
 export async function linkEmail(email: string, password: string) {
   const { data, error } = await supabase.auth.updateUser({
     email,
     password,
   });
   if (error) throw error;
-  return data;
+  return data.user;
 }
 
 export async function signOut() {
@@ -21,8 +30,6 @@ export async function signOut() {
 }
 
 export async function deleteAccount() {
-  // User deletion requires a server-side function (Edge Function)
-  // For now, sign out and let the Edge Function handle actual deletion
   const { error } = await supabase.functions.invoke('delete-account');
   if (error) throw error;
   await signOut();

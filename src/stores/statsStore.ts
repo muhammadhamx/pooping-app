@@ -23,7 +23,7 @@ interface StatsState {
   loadStats: (userId: string, allSessions?: Session[]) => Promise<void>;
 }
 
-function computeStreak(sessions: Session[]): number {
+export function computeStreak(sessions: Session[]): number {
   if (sessions.length === 0) return 0;
   const days = new Set(
     sessions.map((s) => new Date(s.started_at).toISOString().slice(0, 10))

@@ -15,7 +15,7 @@ import { useSessionStore } from '@/stores/sessionStore';
 import { formatDuration, formatHour } from '@/utils/formatters';
 import { getRandomItem, EMPTY_STATE_MESSAGES } from '@/humor/jokes';
 import { analyzeHealth, getOverallStatus, HEALTH_DISCLAIMER } from '@/health/insights';
-import { COLORS } from '@/utils/constants';
+import { COLORS, SHADOWS } from '@/utils/constants';
 
 const PERIODS: { key: StatsPeriod; label: string }[] = [
   { key: 'today', label: 'Today' },
@@ -46,7 +46,7 @@ export default function StatsScreen() {
   if (isLoading && !data) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="large" color={COLORS.accent} />
       </View>
     );
   }
@@ -70,7 +70,7 @@ export default function StatsScreen() {
     .map((h) => ({
       value: h.count,
       label: h.hour % 6 === 0 ? formatHour(h.hour) : '',
-      frontColor: COLORS.primary,
+      frontColor: COLORS.accent,
     }));
 
   return (
@@ -82,8 +82,8 @@ export default function StatsScreen() {
         <RefreshControl
           refreshing={isLoading}
           onRefresh={refresh}
-          tintColor={COLORS.primary}
-          colors={[COLORS.primary]}
+          tintColor={COLORS.accent}
+          colors={[COLORS.accent]}
         />
       }
     >
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   periodButtonActive: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.accent,
   },
   periodText: {
     fontSize: 13,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
   periodTextActive: {
-    color: '#FFFFFF',
+    color: COLORS.primaryDark,
   },
   cardsRow: {
     flexDirection: 'row',
@@ -266,14 +266,12 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     backgroundColor: COLORS.surface,
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.03,
-    shadowRadius: 4,
-    elevation: 1,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.card,
   },
   cardEmoji: {
     fontSize: 24,
@@ -293,8 +291,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     marginHorizontal: 16,
     marginTop: 16,
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.card,
   },
   chartTitle: {
     fontSize: 16,
@@ -327,8 +328,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     marginHorizontal: 16,
     marginTop: 16,
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.card,
   },
   healthHeader: {
     flexDirection: 'row',

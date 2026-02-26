@@ -136,13 +136,69 @@ export async function getProfile(userId: string): Promise<Profile | null> {
 
 export async function updateProfile(
   userId: string,
-  updates: Partial<Pick<Profile, 'display_name' | 'avatar_emoji' | 'is_in_session' | 'session_started_at' | 'looking_for_buddy'>>
+  updates: Partial<Pick<Profile, 'display_name' | 'avatar_emoji' | 'is_in_session' | 'session_started_at' | 'looking_for_buddy' | 'xp' | 'streak_count' | 'streak_last_date' | 'streak_freezes' | 'selected_title_id' | 'unlocked_title_ids' | 'unlocked_achievement_ids' | 'reward_session_count'>>
 ): Promise<void> {
   const { error } = await supabase
     .from('profiles')
     .update({ ...updates, updated_at: new Date().toISOString() })
     .eq('id', userId);
   if (error) throw error;
+}
+
+/** Full gamification data shape for sync */
+export interface GamificationSyncData {
+  xp: number;
+  streakCount: number;
+  streakLastDate: string;
+  streakFreezes: number;
+  selectedTitleId: string;
+  unlockedTitleIds: string[];
+  unlockedAchievementIds: string[];
+  rewardSessionCount: number;
+}
+
+/** Push local gamification state to Supabase profile */
+export async function syncGamificationUp(
+  userId: string,
+  data: GamificationSyncData
+): Promise<void> {
+  const { error } = await supabase
+    .from('profiles')
+    .update({
+      xp: data.xp,
+      streak_count: data.streakCount,
+      streak_last_date: data.streakLastDate,
+      streak_freezes: data.streakFreezes,
+      selected_title_id: data.selectedTitleId,
+      unlocked_title_ids: data.unlockedTitleIds,
+      unlocked_achievement_ids: data.unlockedAchievementIds,
+      reward_session_count: data.rewardSessionCount,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', userId);
+  if (error) throw error;
+}
+
+/** Pull gamification data from Supabase profile */
+export async function syncGamificationDown(
+  userId: string
+): Promise<GamificationSyncData | null> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('xp, streak_count, streak_last_date, streak_freezes, selected_title_id, unlocked_title_ids, unlocked_achievement_ids, reward_session_count')
+    .eq('id', userId)
+    .single();
+  if (error) return null;
+  return {
+    xp: data.xp ?? 0,
+    streakCount: data.streak_count ?? 0,
+    streakLastDate: data.streak_last_date ?? '',
+    streakFreezes: data.streak_freezes ?? 2,
+    selectedTitleId: data.selected_title_id ?? 'the_newbie',
+    unlockedTitleIds: data.unlocked_title_ids ?? ['the_newbie'],
+    unlockedAchievementIds: data.unlocked_achievement_ids ?? [],
+    rewardSessionCount: data.reward_session_count ?? 0,
+  };
 }
 
 // ============ CHAT ROOMS ============
@@ -251,6 +307,7 @@ export async function endBuddyMatch(matchId: string): Promise<void> {
 }
 
 export async function getActiveMatch(userId: string): Promise<BuddyMatch | null> {
+  if (!userId) return null;
   const { data, error } = await supabase
     .from('buddy_matches')
     .select('*')
@@ -261,4 +318,22 @@ export async function getActiveMatch(userId: string): Promise<BuddyMatch | null>
     .maybeSingle();
   if (error) throw error;
   return data;
+}
+
+// ============ LEADERBOARD ============
+
+export interface LeaderboardEntry {
+  id: string;
+  display_name: string;
+  avatar_emoji: string;
+  xp: number;
+}
+
+export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, display_name, avatar_emoji, xp')
+    .order('xp', { ascending: false });
+  if (error) throw error;
+  return data ?? [];
 }

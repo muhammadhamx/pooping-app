@@ -5,6 +5,8 @@ export interface Achievement {
   name: string;
   description: string;
   emoji: string;
+  unlockMessage: string;
+  flavor: string;
   check: (sessions: Session[], context: AchievementContext) => boolean;
 }
 
@@ -24,6 +26,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'First Plop',
     description: 'Complete your first session',
     emoji: '🎉',
+    unlockMessage: "And so it begins! Your throne journey has officially started.",
+    flavor: "Every legend has an origin story. Yours started on the toilet.",
     check: (sessions) => sessions.length >= 1,
   },
   {
@@ -31,6 +35,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Early Bird',
     description: 'Complete a session before 6 AM',
     emoji: '🐦',
+    unlockMessage: "The early bird gets the... relief. Impressive dedication!",
+    flavor: "While the world sleeps, you reign supreme on the porcelain throne.",
     check: (sessions) =>
       sessions.some((s) => new Date(s.started_at).getHours() < 6),
   },
@@ -39,6 +45,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Night Owl',
     description: 'Complete a session after midnight',
     emoji: '🦉',
+    unlockMessage: "A midnight mission to the throne room. The owls salute you.",
+    flavor: "Some call it insomnia. You call it a strategic late-night deployment.",
     check: (sessions) =>
       sessions.some((s) => {
         const hour = new Date(s.started_at).getHours();
@@ -50,6 +58,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Speed Run',
     description: 'Complete a session in under 2 minutes',
     emoji: '⚡',
+    unlockMessage: "In and out! That was faster than a microwave burrito.",
+    flavor: "You didn't even have time to open your phone. A true professional.",
     check: (sessions) =>
       sessions.some(
         (s) => s.duration_seconds !== null && s.duration_seconds < 120
@@ -60,6 +70,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Marathon',
     description: 'Survive a session over 30 minutes',
     emoji: '🏅',
+    unlockMessage: "30 minutes?! Your legs must be numb. You've earned this.",
+    flavor: "Doctors hate this one weird trick. Actually, they probably do.",
     check: (sessions) =>
       sessions.some(
         (s) => s.duration_seconds !== null && s.duration_seconds > 1800
@@ -70,6 +82,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Regular as Clockwork',
     description: '7-day streak at the same time (within 15 min)',
     emoji: '⏰',
+    unlockMessage: "Your body runs like a Swiss watch. A very specific Swiss watch.",
+    flavor: "Consistency is key. Your colon got the memo.",
     check: (sessions) => {
       if (sessions.length < 7) return false;
       const sorted = [...sessions]
@@ -99,6 +113,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Streaker',
     description: 'Log sessions 7 days in a row',
     emoji: '🔥',
+    unlockMessage: "7 days! You're on fire! (Not literally, hopefully.)",
+    flavor: "A week of unbroken throne dominance. The porcelain bows before you.",
     check: (sessions) => {
       if (sessions.length < 7) return false;
       const days = new Set(
@@ -128,6 +144,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Centurion',
     description: 'Log 100 sessions',
     emoji: '💯',
+    unlockMessage: "100 sessions! That's... a lot of toilet paper.",
+    flavor: "If each session averaged 5 minutes, that's over 8 hours on the throne. Respect.",
     check: (sessions) => sessions.length >= 100,
   },
   {
@@ -135,6 +153,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Social Butterfly',
     description: 'Chat with 10 different poop buddies',
     emoji: '🦋',
+    unlockMessage: "10 poop buddies! You're basically a bathroom networking expert.",
+    flavor: "LinkedIn for the lavatory. Your connections are... unique.",
     check: (_sessions, ctx) => ctx.totalBuddyChats >= 10,
   },
   {
@@ -142,6 +162,8 @@ export const ACHIEVEMENTS: Achievement[] = [
     name: 'Throne Room Regular',
     description: 'Join group chat 20 times',
     emoji: '👑',
+    unlockMessage: "The Throne Room knows your name. You're basically royalty now.",
+    flavor: "Where everybody knows your name... and what you're doing there.",
     check: (_sessions, ctx) => ctx.totalRoomJoins >= 20,
   },
 ];
