@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import NetInfo from '@react-native-community/netinfo';
 import { vexo, identifyDevice } from 'vexo-analytics';
 import { useAuthStore } from '@/stores/authStore';
 import { useSessionStore } from '@/stores/sessionStore';
@@ -17,6 +18,7 @@ import {
 import { useGamificationStore } from '@/stores/gamificationStore';
 import { ConfettiProvider } from '@/contexts/ConfettiContext';
 import { AnimatedSplash } from '@/components/ui/AnimatedSplash';
+import { OfflineBanner } from '@/components/ui/OfflineBanner';
 import { COLORS } from '@/utils/constants';
 
 // Initialize Vexo analytics
@@ -37,6 +39,7 @@ export default function RootLayout() {
   const startTime = useSessionStore((s) => s.startTime);
   const appState = useRef(AppState.currentState);
   const [showSplash, setShowSplash] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
 
   // Auth init — hide native splash once auth is ready, animated splash takes over
   useEffect(() => {
@@ -56,6 +59,23 @@ export default function RootLayout() {
 
   const handleSplashFinish = useCallback(() => {
     setShowSplash(false);
+  }, []);
+
+  // ─── Offline detection ───
+  useEffect(() => {
+    if (showSplash) return;
+
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(state.isConnected === false);
+    });
+
+    return () => unsubscribe();
+  }, [showSplash]);
+
+  const handleRetry = useCallback(() => {
+    NetInfo.fetch().then((state) => {
+      setIsOffline(state.isConnected === false);
+    });
   }, []);
 
   // Schedule notifications (lazy — only loads module when needed)
@@ -202,6 +222,7 @@ export default function RootLayout() {
           />
         </Stack>
       </ConfettiProvider>
+      {isOffline && <OfflineBanner onRetry={handleRetry} />}
     </GestureHandlerRootView>
   );
 }
