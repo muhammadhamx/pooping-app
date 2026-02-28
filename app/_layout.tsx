@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { vexo, identifyDevice } from 'vexo-analytics';
 import { useAuthStore } from '@/stores/authStore';
 import { useSessionStore } from '@/stores/sessionStore';
 import {
@@ -18,6 +19,9 @@ import { ConfettiProvider } from '@/contexts/ConfettiContext';
 import { AnimatedSplash } from '@/components/ui/AnimatedSplash';
 import { COLORS } from '@/utils/constants';
 
+// Initialize Vexo analytics
+vexo('a81abd17-cd81-479b-aa13-2954bd4e23fc');
+
 // Keep the native splash visible until we explicitly hide it
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -28,6 +32,7 @@ const NOTIFICATION_UPDATE_INTERVAL_MS = 15_000; // 15 seconds
 export default function RootLayout() {
   const initialize = useAuthStore((s) => s.initialize);
   const isLoading = useAuthStore((s) => s.isLoading);
+  const user = useAuthStore((s) => s.user);
   const isActive = useSessionStore((s) => s.isActive);
   const startTime = useSessionStore((s) => s.startTime);
   const appState = useRef(AppState.currentState);
@@ -39,6 +44,15 @@ export default function RootLayout() {
       SplashScreen.hideAsync().catch(() => {});
     });
   }, [initialize]);
+
+  // Identify user for Vexo analytics
+  useEffect(() => {
+    if (user?.email) {
+      identifyDevice(user.email);
+    } else if (user?.id) {
+      identifyDevice(user.id);
+    }
+  }, [user?.id, user?.email]);
 
   const handleSplashFinish = useCallback(() => {
     setShowSplash(false);
